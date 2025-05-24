@@ -1,0 +1,21 @@
+---
+- name: Install the common packages
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - common
+
+- name: Install the Web server
+  hosts: webservers 
+  become: yes 
+  gather_facts: no 
+  roles: 
+    - webserver
+
+- name: Install and configure the database
+  gather_facts: yes
+  become: true
+  hosts: dbservers
+  roles:
+    - dbserver

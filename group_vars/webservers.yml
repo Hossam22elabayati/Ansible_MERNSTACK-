@@ -1,0 +1,10 @@
+app_dir: "/var/www/mern-app"
+npm_packages: 
+  - express 
+  - create-react-app 
+  - pm2 
+app_name: my_app
+react_app:
+  title: Custom React App 
+  msg: "this is a sample react app manged by ansible"
+deploy_custom_page: true

@@ -1,0 +1,56 @@
+---
+# tasks file for roles/webserver
+- name: install nodeJs Npm 
+  ansible.builtin.apt: 
+    pkg:
+      - nodejs 
+      - npm 
+    state: present 
+
+- name: Create Application Directory 
+  ansible.builtin.file: 
+    path: "{{ app_dir }}"
+    state: directory 
+    owner:  "{{ users.0.name }}"
+    group: "{{ users.0.group }}"
+    mode: '0775'
+
+- name: Install Npm packages 
+  ansible.builtin.npm:
+    name: "{{ item  }}"
+    global: yes 
+  loop: "{{ npm_packages }}" 
+
+- name: Intialize a new React project 
+  ansible.builtin.command:
+    cmd:  "npx create-react-app {{ app_name  }}" 
+    chdir: "{{ app_dir }}"
+  args: 
+    creates: "{{ app_dir }}/{{ app_name }}"
+
+- name: configure react development server to listen on 0.0.0.0 
+  ansible.builtin.lineinfile:
+    path: "{{ app_dir }}/{{ app_name }}/.env"
+    line: "HOST=0.0.0.0"
+    create: yes 
+
+- name: Deploy custom app.css 
+  ansible.builtin.copy: 
+    src: app.css 
+    dest: "{{ app_dir }}/{{ app_name }}/src/App.css"
+    mode: '0644'
+  when: deploy_custom_page  #false , override with custom page to you
+
+- name: Deploy custom app.js 
+  ansible.builtin.template: 
+    src: app.js.j2
+    dest: "{{ app_dir }}/{{ app_name }}/src/App.js"
+    mode: '0644'
+    variable_start_string: "{[%"
+    variable_end_string: "%]}"   # solve confilqute
+  when: deploy_custom_page
+
+- name: start the development server React
+  ansible.builtin.command: 
+    cmd: pm2 start npm -- start --watch 
+    chdir: "{{ app_dir }}/{{ app_name }}" 

@@ -1,0 +1,7 @@
+users: 
+  - default 
+  - name: ansible-admin
+    sudo: ALL=(ALL)  NOPASSWD:ALL
+    shell: /bin/bash 
+    ssh_authorized_keys: 
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYOYIo4tWlPAAa0Jn34zxIsZQ2Lp6VQm7iU5B1ElQpBw+x0dsOrBR2gE13qi7jQbG5wIS4Mvi9OzOTAhH6/2wX8rSd60gCKYo2/lBJ5Xahr9zTfbGOdQgkcYjvWvKrV8MYjTXCM2AxzBjsqIAbKvvmv7dv/75nWcoQiGfSOWlG3DYI/OXUA+u3XWWU0HD48BJbJjbhY+ojb31/mzD68uG6M8E5ebAg9B4SLKEkrUPoSTvF0nkbCtn5ufHxzSgLfjEkMtXF9cuezmwltHIU1PbjMUOIZrPLOQHGELpzmeNbBebitnelCP7Yy4bcTiE3iuVz1jxD18LeGyiIW8B/Vl1gvtkqsm7zSq4a2ON0ldQUTRqYcf3LW1wpwhpwH+AqO3e8IwrFKLTNPBKItZzd4X2h0e5RwibvYIGMNkIkm368uJVbjmEHlt+GWfU04Dq3DNhoW5YBm8vtQrB1B1EA940fp2I8xU5TbGw3G9DsMTNfLcymNCNB8IuewEymluiGENs= root@Ansible-machine"
